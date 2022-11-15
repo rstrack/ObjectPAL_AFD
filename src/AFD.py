@@ -1,7 +1,27 @@
 from Estado import Estado
 
 class AFD:
+    def __has_estados_duplicados(self, estados) -> bool:
+        visitados = set()
+        duplicados = [i for i in estados if len([j for j in visitados if j.id == i.id]) != 0 or (visitados.add(i) or False)]
+        return len(duplicados) != 0
+        
     def __init__(self, inicial: Estado, estados: list[Estado], finais: list[Estado]):
+        if len(estados) < len(finais):
+            raise Exception("O conjunto de estados é menor que o de estados finais.")
+        
+        if len(estados) == 0 or len(finais) == 0:
+            raise Exception("O AFD deve possuir ao menos 1 estado.")
+
+        if inicial not in estados:
+            raise Exception("O estado inicial também deve estar na lista de estados.")
+
+        if self.__has_estados_duplicados(estados):
+            raise Exception("Há estados duplicados.")
+
+        if self.__has_estados_duplicados(finais):
+            raise Exception("Há estados finais duplicados.")
+
         self.inicial = inicial
         self.estados = estados
         self.finais = finais
