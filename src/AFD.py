@@ -36,6 +36,8 @@ class AFD:
                 print(f'Reiniciou; já processado: {cadeia_entrada[:i]}, restante: {cadeia_entrada[i:]}')
                 if self.is_estado_final(estado_anterior):
                     categorias.append(estado_anterior.id)
+                elif cadeia_entrada[i] != " ":
+                    categorias.append("NILL")
             elif self.is_estado_final(estado):
                 categorias.append(estado.id)
                 estado = self.inicial
