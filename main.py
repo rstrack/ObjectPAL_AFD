@@ -28,13 +28,20 @@ class Estado:
             return False
 
 class Transicao:
-    def __init__(self, estado_origem, simbolo, estado_destino):
+    def __init__(self, estado_origem: Estado, simbolos: list[str], estado_destino: Estado):
+        if (len(simbolos) == 0):
+            raise Exception("É necessário ao menos um símbolo para criar a transição")
+
         self.estado_origem = estado_origem
-        self.simbolo = simbolo
+        self.simbolos = simbolos
         self.estado_destino = estado_destino
 
     def __str__(self):
-        return "(%s -- %s --> %s)" % (self.estado_origem.id, self.simbolo, self.estado_destino.id)
+        return "(%s -- %s --> %s)" % (
+            self.estado_origem.id, 
+            self.simbolos, 
+            self.estado_destino.id
+        )
 
     def __add__(self, other):
         return str(self) + other
@@ -43,7 +50,11 @@ class Transicao:
         return other + str(self)
 
     def equals(self, transicao):
-        return (self.estado_origem == transicao.estado_origem) and (self.simbolo == transicao.simbolo) and (self.estado_destino == transicao.estado_destino)
+        return (
+            (self.estado_origem == transicao.estado_origem) 
+            and (self.estado_destino == transicao.estado_destino)
+            and (set(self.estados) == set(transicao.simbolos))
+        )
 
 class AFD:
     def __init__(self, inicial: Estado, estados: list[Estado], finais: list[Estado]):
@@ -53,7 +64,7 @@ class AFD:
 
     def get_next_estado(self, current_estado, simbolo_entrada):
         for transicao in current_estado.transicoes:
-            if transicao.simbolo == simbolo_entrada:
+            if simbolo_entrada in transicao.simbolos:
                 return transicao.estado_destino
         return None
 
@@ -87,21 +98,16 @@ class AFD:
 
 if __name__ == '__main__':
 
-    s0 = Estado("s0")
-    s1 = Estado("s1")
-    s2 = Estado("s2")
+    q0 = Estado("q0")
+    q1 = Estado("q1")
 
-    s0_1_1 = Transicao(s0, "<", s1)
-    s1_2_1 = Transicao(s1, ">", s2)
-    s1_2_2 = Transicao(s1, "=", s2)
+    q0_1_q1 = Transicao(q0, ["1"], q1)
+    q0.add_transicao(q0_1_q1)
+    
+    q1_1_q1 = Transicao(q1, ["1", "2"], q1)
+    q1.add_transicao(q1_1_q1)
 
-    s0.add_transicao(s0_1_1)
-    s1.add_transicao(s1_2_1)
-    s1.add_transicao(s1_2_2)
-
-    a = AFD(s0, [s0, s1, s2], [s1, s2])
+    a = AFD(q0, [q0, q1], [q1])
 
     print(a)
-    print(a.accepts('<>')) #True
-    print(a.accepts('<')) #True
-    print(a.accepts('<=')) #True
+    print(a.accepts("2"))
