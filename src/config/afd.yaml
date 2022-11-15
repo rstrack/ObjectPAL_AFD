@@ -1,0 +1,16 @@
+inicial: q0
+estados: ['q0', 'q1', 'q2', 'q3']
+finais: ['q1', 'q3']
+transicoes:
+  - origem: q0
+    destino: q1
+    simbolos: ['n', 'N']
+  - origem: q0
+    destino: q2
+    simbolos: ['"']
+  - origem: q2
+    destino: q3
+    simbolos: ['"']
+  - origem: q2
+    destino: q2
+    simbolos: ['a', 'b', 'c', 'd', ' ']
