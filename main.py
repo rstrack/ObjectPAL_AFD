@@ -81,13 +81,24 @@ class AFD:
                 return ok
         return False
 
-    def accepts(self, string):
-        estado = self.inicial
-        for character in string:
-            estado = self.get_next_estado(estado, character)
-            if  estado == None:
-                return False
-        return self.is_estado_final(estado)
+    def get_categorias(self, cadeia_entrada):
+        estado: Estado = self.inicial
+        categorias: list[str] = []
+
+        for i in range(len(cadeia_entrada)):
+            estado_anterior: Estado = estado
+            estado = self.get_next_estado(estado, cadeia_entrada[i])
+        
+            if estado == None:
+                estado = self.inicial
+                print(f'Reiniciou; já processado: {cadeia_entrada[:i]}, restante: {cadeia_entrada[i:]}')
+                if self.is_estado_final(estado_anterior):
+                    categorias.append(estado_anterior.id)
+            elif self.is_estado_final(estado):
+                categorias.append(estado.id)
+                estado = self.inicial
+        
+        return categorias
 
     def __str__(self):
         afd = "Estado inicial: %s\nEstados Finais: %s\n" % (self.inicial.id, [i.id for i in self.finais])
@@ -112,13 +123,16 @@ if __name__ == '__main__':
     q0_q1 = Transicao(q0, ["n", "N"], q1)
     q0_q2 = Transicao(q0, ["\""], q2)
     q2_q3 = Transicao(q2, ["\""], q3)
-    q2_q2 = Transicao(q2, ["a", "b", "c", "d"], q2)
+    q2_q2 = Transicao(q2, ["a", "b", "c", "d", " "], q2)
     
     a = AFD(
         inicial=q0, 
-        estados=[q0, q1, q2, q3], 
+        estados=[q0, q1, q2, q3],
         finais=[q1, q3]
     )
 
     print(a)
-    print(a.accepts("\"abbaaaddadc\""))
+    print(a.get_categorias("\"ab\"nN\"aabbc dbbd\" n n NN"))
+
+    # "ab"nN"aabbc dbbd" n n NN
+    # q3 q1 q1 q3 q1 q1 q3
