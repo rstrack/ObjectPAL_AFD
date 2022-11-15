@@ -1,6 +1,6 @@
 from Estado import Estado
 from Transicao import Transicao
-from ADF import AFD
+from AFD import AFD
 
 if __name__ == '__main__':
 
