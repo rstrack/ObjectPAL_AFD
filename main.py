@@ -36,6 +36,8 @@ class Transicao:
         self.simbolos = simbolos
         self.estado_destino = estado_destino
 
+        self.estado_origem.add_transicao(self)
+
     def __str__(self):
         return "(%s -- %s --> %s)" % (
             self.estado_origem.id, 
@@ -112,11 +114,6 @@ if __name__ == '__main__':
     q2_q3 = Transicao(q2, ["\""], q3)
     q2_q2 = Transicao(q2, ["a", "b", "c", "d"], q2)
     
-    q0.add_transicao(q0_q1)
-    q0.add_transicao(q0_q2)
-    q2.add_transicao(q2_q2)
-    q2.add_transicao(q2_q3)
-
     a = AFD(
         inicial=q0, 
         estados=[q0, q1, q2, q3], 
