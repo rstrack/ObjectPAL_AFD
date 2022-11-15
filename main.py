@@ -68,10 +68,12 @@ class AFD:
                 return transicao.estado_destino
         return None
 
-    def equals(self, estados: list[Estado], estado: Estado):
-        for e in estados:
-            ok = (e.id == estado.id)
-            if len(e.transicoes) == len(estado.transicoes):
+    def is_estado_final(self, estado: Estado):
+        for e in self.finais:
+            if e.id == estado.id and len(e.transicoes) == len(estado.transicoes):
+                ok = True
+                if len(e.transicoes) == 0:
+                    return ok
                 for i in range(len(e.transicoes)):
                     ok = ok and (e.transicoes[i] == estado.transicoes[i])
                 return ok
@@ -81,7 +83,9 @@ class AFD:
         estado = self.inicial
         for character in string:
             estado = self.get_next_estado(estado, character)
-        return estado != None and self.equals(self.finais, estado)
+            if  estado == None:
+                return False
+        return self.is_estado_final(estado)
 
     def __str__(self):
         afd = "Estado inicial: %s\nEstados Finais: %s\n" % (self.inicial.id, [i.id for i in self.finais])
@@ -100,14 +104,24 @@ if __name__ == '__main__':
 
     q0 = Estado("q0")
     q1 = Estado("q1")
+    q2 = Estado("q2")
+    q3 = Estado("q3")
 
-    q0_1_q1 = Transicao(q0, ["1"], q1)
-    q0.add_transicao(q0_1_q1)
+    q0_q1 = Transicao(q0, ["n", "N"], q1)
+    q0_q2 = Transicao(q0, ["\""], q2)
+    q2_q3 = Transicao(q2, ["\""], q3)
+    q2_q2 = Transicao(q2, ["a", "b", "c", "d"], q2)
     
-    q1_1_q1 = Transicao(q1, ["1", "2"], q1)
-    q1.add_transicao(q1_1_q1)
+    q0.add_transicao(q0_q1)
+    q0.add_transicao(q0_q2)
+    q2.add_transicao(q2_q2)
+    q2.add_transicao(q2_q3)
 
-    a = AFD(q0, [q0, q1], [q1])
+    a = AFD(
+        inicial=q0, 
+        estados=[q0, q1, q2, q3], 
+        finais=[q1, q3]
+    )
 
     print(a)
-    print(a.accepts("2"))
+    print(a.accepts("\"abbaaaddadc\""))
