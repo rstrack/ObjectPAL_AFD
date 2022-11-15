@@ -81,7 +81,7 @@ class AFD:
         estado = self.inicial
         for character in string:
             estado = self.get_next_estado(estado, character)
-        return self.equals(self.finais, estado)
+        return estado != None and self.equals(self.finais, estado)
 
     def __str__(self):
         afd = "Estado inicial: %s\nEstados Finais: %s\n" % (self.inicial.id, [i.id for i in self.finais])
