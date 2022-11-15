@@ -57,7 +57,7 @@ class AFD:
                 if self.is_estado_final(estado_anterior):
                     categorias.append(estado_anterior.id)
                 elif cadeia_entrada[i] != " ":
-                    categorias.append("NILL")
+                    categorias.append("NIN")
             elif self.is_estado_final(estado):
                 categorias.append(estado.id)
                 estado = self.inicial

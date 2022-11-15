@@ -2,3 +2,4 @@ categorias:
   q1: "NÚMERO"
   q3: "STRING"
   q4: "ATRIBUIÇÃO"
+  NIN: "ELEMENTO DESCONHECIDO"
