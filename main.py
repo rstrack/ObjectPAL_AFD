@@ -1,20 +1,25 @@
 class Estado:
-    def __init__(self, val):
-        self.val = val
+    def __init__(self, id):
+        self.id = id
         self.transicoes = []
+        
     def add_transicao(self, transicao):
         self.transicoes.append(transicao)
+
     def __str__(self):
-        estado = "(%s):\n" % self.val
+        estado = "(%s):\n" % self.id
         for transicao in self.transicoes:
             estado += "\t" + transicao + "\n"
         return estado
+
     def __add__(self, other):
         return str(self) + other
+
     def __radd__(self, other):
         return other + str(self)
+
     def equals(self, estado):
-        ok = (self.val == estado.val)
+        ok = (self.id == estado.id)
         if len(self.transicoes) == len(estado.transicoes):
             for i in range(len(self.transicoes)):
                 ok = ok and (self.transicoes[i] == estado.transicoes[i])
@@ -23,18 +28,22 @@ class Estado:
             return False
 
 class Transicao:
-    def __init__(self, from_estado, regra, to_estado):
-        self.from_estado = from_estado
-        self.regra = regra
-        self.to_estado = to_estado
+    def __init__(self, estado_origem, simbolo, estado_destino):
+        self.estado_origem = estado_origem
+        self.simbolo = simbolo
+        self.estado_destino = estado_destino
+
     def __str__(self):
-        return "(%s -- %s --> %s)" % (self.from_estado.val, self.regra, self.to_estado.val)
+        return "(%s -- %s --> %s)" % (self.estado_origem.id, self.simbolo, self.estado_destino.id)
+
     def __add__(self, other):
         return str(self) + other
+
     def __radd__(self, other):
         return other + str(self)
+
     def equals(self, transicao):
-        return (self.from_estado == transicao.from_estado) and (self.regra == transicao.regra) and (self.to_estado == transicao.to_estado)
+        return (self.estado_origem == transicao.estado_origem) and (self.simbolo == transicao.simbolo) and (self.estado_destino == transicao.estado_destino)
 
 class AFD:
     def __init__(self, inicial: Estado, estados: list[Estado], finais: list[Estado]):
@@ -42,15 +51,15 @@ class AFD:
         self.estados = estados
         self.finais = finais
 
-    def get_next_estado(self, current_estado, regra):
+    def get_next_estado(self, current_estado, simbolo_entrada):
         for transicao in current_estado.transicoes:
-            if transicao.regra == regra:
-                return transicao.to_estado
+            if transicao.simbolo == simbolo_entrada:
+                return transicao.estado_destino
         return None
 
     def equals(self, estados: list[Estado], estado: Estado):
         for e in estados:
-            ok = (e.val == estado.val)
+            ok = (e.id == estado.id)
             if len(e.transicoes) == len(estado.transicoes):
                 for i in range(len(e.transicoes)):
                     ok = ok and (e.transicoes[i] == estado.transicoes[i])
@@ -64,7 +73,7 @@ class AFD:
         return self.equals(self.finais, estado)
 
     def __str__(self):
-        afd = "Estado inicial: %s\nEstados Finais: %s\n" % (self.inicial.val, [i.val for i in self.finais])
+        afd = "Estado inicial: %s\nEstados Finais: %s\n" % (self.inicial.id, [i.id for i in self.finais])
         for estado in self.estados:
             afd += estado
         return afd
