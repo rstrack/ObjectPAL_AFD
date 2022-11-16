@@ -22,12 +22,28 @@ def compile_afd() -> AFD:
 			for item in modelo["finais"]:
 				finais.append(Estado(item))
 
-			for item in modelo["transicoes"]:				
-				Transicao(
-					estado_origem=[_estado for _estado in estados if _estado.id == item["origem"]][0], 
-					simbolos=item["simbolos"],
-					estado_destino=[_estado for _estado in estados if _estado.id == item["destino"]][0]
+			for item in modelo["transicoes"]:	
+				_origem, _destino = (
+					[_estado for _estado in estados if _estado.id == item["origem"]],
+					[_estado for _estado in estados if _estado.id == item["destino"]]
 				)
+				if len(_origem) != 0:
+					Transicao(
+						estado_origem=_origem[0], 
+						simbolos=item["simbolos"],
+						estado_destino=_destino[0]
+					)
+
+				_origemFinais, _destinoFinais = (
+					[_estado for _estado in finais if _estado.id == item["origem"]],
+					[_estado for _estado in finais if _estado.id == item["destino"]]
+				)
+				if len(_origemFinais) != 0:
+					Transicao(
+						estado_origem=_origemFinais[0], 
+						simbolos=item["simbolos"],
+						estado_destino=_destinoFinais[0]
+					)
 
 			return AFD(inicial, estados, finais)
 
