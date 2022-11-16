@@ -1,3 +1,4 @@
+import time
 from Estado import Estado
 
 class Transicao:
@@ -10,6 +11,21 @@ class Transicao:
         self.estado_destino = estado_destino
 
         self.estado_origem.add_transicao(self)
+
+    def transicao_complexa(self):
+        for simbolo in self.simbolos:
+            if len(simbolo) > 1:
+                est_i = self.estado_origem
+                for i in range(len(simbolo)):
+                    if i == len(simbolo)-1:
+                        t  = Transicao(est_i, simbolo[i], self.estado_destino)
+                        est_i.add_transicao(t)
+                        return
+
+                    est_f = Estado(f"q_aux_{int(time.time())}")
+                    t = Transicao(est_i, simbolo[i], est_f)
+                    est_i.add_transicao(t)
+                    est_i = est_f
 
     def __str__(self):
         return "(%s -- %s --> %s)" % (
