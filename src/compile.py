@@ -23,27 +23,37 @@ def compile_afd() -> AFD:
 				finais.append(Estado(item))
 
 			for item in modelo["transicoes"]:	
-				_origem, _destino = (
-					[_estado for _estado in estados if _estado.id == item["origem"]],
-					[_estado for _estado in estados if _estado.id == item["destino"]]
-				)
-				if len(_origem) != 0:
-					Transicao(
-						estado_origem=_origem[0], 
-						simbolos=item["simbolos"],
-						estado_destino=_destino[0]
-					)
+				for _estado in estados:
+					_origem = None
+					_destino = None
+					if _estado.id == item["origem"]:
+						_origem = _estado
 
-				_origemFinais, _destinoFinais = (
-					[_estado for _estado in finais if _estado.id == item["origem"]],
-					[_estado for _estado in finais if _estado.id == item["destino"]]
-				)
-				if len(_origemFinais) != 0:
-					Transicao(
-						estado_origem=_origemFinais[0], 
-						simbolos=item["simbolos"],
-						estado_destino=_destinoFinais[0]
-					)
+					if _estado.id == item["destino"]:
+						_origem = _estado
+					
+					if _origem != None and _destino != None:
+						Transicao(
+							estado_origem=_origem[0], 
+							simbolos=item["simbolos"],
+							estado_destino=_destino[0]
+						)
+
+				for _estado in finais:
+					_origem = None
+					_destino = None
+					if _estado.id == item["origem"]:
+						_origem = _estado
+
+					if _estado.id == item["destino"]:
+						_origem = _estado
+					
+					if _origem != None and _destino != None:
+						Transicao(
+							estado_origem=_origem[0], 
+							simbolos=item["simbolos"],
+							estado_destino=_destino[0]
+						)
 
 			return AFD(inicial, estados, finais)
 
