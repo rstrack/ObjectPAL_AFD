@@ -34,17 +34,19 @@ def compile_afd() -> AFD:
 						_destino = _estado
 					
 					if _origem != None and _destino != None:
-						Transicao(
+						transicao = Transicao(
 							estado_origem=_origem,
 							simbolos=item["simbolos"],
 							estado_destino=_destino
 						)
+						estados_intermediarios = transicao.get_intermediarios() 
+						if len(estados_intermediarios) >= 1:
+							estados.extend(estados_intermediarios)
 						_origem = None
 						_destino = None
 
 			return AFD(inicial, estados, finais)
 
 	except IOError:
-		print('Não foi possível abrir o arquivo de modelo do ADF.')
-
+		print('Não foi possível abrir o arquivo de modelo do AFD.')
     

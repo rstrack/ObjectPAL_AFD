@@ -2,30 +2,36 @@ import time
 from Estado import Estado
 
 class Transicao:
-    def __init__(self, estado_origem: Estado, simbolos: list[str], estado_destino: Estado, add_transicao: bool =  True):
+    def __init__(self, estado_origem: Estado, simbolos: list[str], estado_destino: Estado):
         if (len(simbolos) == 0):
             raise Exception("É necessário ao menos um símbolo para criar a transição")
 
         self.estado_origem = estado_origem
-        self.simbolos = simbolos
         self.estado_destino = estado_destino
-        if add_transicao:
-            self.estado_origem.add_transicao(self)
+        
+        _intermediarios = []
+        for simbolo in simbolos:
+            if len(simbolo) > 1:
+                _intermediarios.extend(self.transicao_complexa(simbolo))
+                simbolos.remove(simbolo)
 
-    def transicao_complexa(self) -> list[Estado]:
+        self.simbolos = simbolos
+        self.estado_origem.add_transicao(self)
+
+        self.__intermediarios = _intermediarios
+
+    def get_intermediarios(self) -> list[Estado]: 
+        return self.__intermediarios
+
+    def transicao_complexa(self, simbolo) -> list[Estado]:
         _estados = []
-        for simbolo in self.simbolos:
-            est_i = self.estado_origem
-            for i in range(len(simbolo)):
-                if i == len(simbolo)-1:
-                    t  = Transicao(est_i, simbolo[i], self.estado_destino)
-                    est_i.add_transicao(t)
-                    return
-                est_f = Estado(f"q_aux_{int(time.time())}")
-                _estados.append(est_f)
-                t = Transicao(est_i, simbolo[i], est_f)
-                est_i.add_transicao(t)
-                est_i = est_f
+        est_i = self.estado_origem
+        for i in range(len(simbolo)-1):
+            est_f = Estado(f"q_aux_{i}_{int(time.time())}")
+            _estados.append(est_f)
+            Transicao(est_i, simbolo[i], est_f)
+            est_i = est_f
+        Transicao(est_i, simbolo[len(simbolo)-1], self.estado_destino)
         return _estados
             
     def __str__(self):
