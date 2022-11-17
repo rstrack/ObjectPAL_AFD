@@ -23,37 +23,24 @@ def compile_afd() -> AFD:
 				finais.append(Estado(item))
 
 			for item in modelo["transicoes"]:	
+				_origem = None
+				_destino = None
+					
 				for _estado in estados:
-					_origem = None
-					_destino = None
 					if _estado.id == item["origem"]:
 						_origem = _estado
 
 					if _estado.id == item["destino"]:
-						_origem = _estado
+						_destino = _estado
 					
 					if _origem != None and _destino != None:
 						Transicao(
-							estado_origem=_origem[0], 
+							estado_origem=_origem,
 							simbolos=item["simbolos"],
-							estado_destino=_destino[0]
+							estado_destino=_destino
 						)
-
-				for _estado in finais:
-					_origem = None
-					_destino = None
-					if _estado.id == item["origem"]:
-						_origem = _estado
-
-					if _estado.id == item["destino"]:
-						_origem = _estado
-					
-					if _origem != None and _destino != None:
-						Transicao(
-							estado_origem=_origem[0], 
-							simbolos=item["simbolos"],
-							estado_destino=_destino[0]
-						)
+						_origem = None
+						_destino = None
 
 			return AFD(inicial, estados, finais)
 
