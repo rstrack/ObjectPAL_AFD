@@ -1,4 +1,4 @@
-import time
+import uuid
 from Estado import Estado
 
 class Transicao:
@@ -27,7 +27,7 @@ class Transicao:
         _estados = []
         est_i = self.estado_origem
         for i in range(len(simbolo)-1):
-            est_f = Estado(f"q_aux_{i}_{int(time.time())}")
+            est_f = Estado(f"q_aux_{i}_{uuid.uuid4()}")
             _estados.append(est_f)
             Transicao(est_i, simbolo[i], est_f)
             est_i = est_f
