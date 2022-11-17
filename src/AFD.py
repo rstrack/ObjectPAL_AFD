@@ -34,13 +34,8 @@ class AFD:
 
     def is_estado_final(self, estado: Estado):
         for e in self.finais:
-            if e.id == estado.id and len(e.transicoes) == len(estado.transicoes):
-                ok = True
-                if len(e.transicoes) == 0:
-                    return ok
-                for i in range(len(e.transicoes)):
-                    ok = ok and (e.transicoes[i] == estado.transicoes[i])
-                return ok
+            if e.id == estado.id:
+                return True
         return False
 
     def get_categorias(self, cadeia_entrada):
@@ -54,13 +49,15 @@ class AFD:
             if estado == None:
                 estado = self.inicial
                 print(f'Reiniciou; já processado: {cadeia_entrada[:i]}, restante: {cadeia_entrada[i:]}')
-                if self.is_estado_final(estado_anterior):
+                if self.is_estado_final(estado_anterior) and cadeia_entrada[i] == " ":
                     categorias.append(estado_anterior.id)
                 elif cadeia_entrada[i] != " ":
                     categorias.append("NIN")
-            elif self.is_estado_final(estado):
-                categorias.append(estado.id)
-                estado = self.inicial
+        
+        if self.is_estado_final(estado):
+            categorias.append(estado.id)
+        else:
+            categorias.append("NIN")
         
         return categorias
 
