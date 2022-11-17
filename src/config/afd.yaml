@@ -4,13 +4,17 @@ finais: ['q1', 'q3']
 transicoes:
   - origem: q0
     destino: q1
-    simbolos: ['n', 'N']
-  - origem: q0
+    simbolos: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+  - origem: q1
+    destino: q1
+    simbolos: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+  - origem: q1
     destino: q2
-    simbolos: ['"']
+    simbolos: ['.']
   - origem: q2
     destino: q3
-    simbolos: ['"']
-  - origem: q2
-    destino: q2
-    simbolos: ['a', 'b', 'c', 'd', ' ']
+    simbolos: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+  - origem: q3
+    destino: q3
+    simbolos: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+  

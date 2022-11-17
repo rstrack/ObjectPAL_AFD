@@ -44,8 +44,8 @@ class AFD:
         return False
 
     def get_categorias(self, cadeia_entrada):
-        estado: Estado = self.inicial
-        categorias: list[str] = []
+        estado = self.inicial
+        categorias = []
 
         for i in range(len(cadeia_entrada)):
             estado_anterior: Estado = estado

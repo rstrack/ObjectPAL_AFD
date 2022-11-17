@@ -46,4 +46,5 @@ def compile_afd() -> AFD:
 
 	except IOError:
 		print('Não foi possível abrir o arquivo de modelo do ADF.')
+
     

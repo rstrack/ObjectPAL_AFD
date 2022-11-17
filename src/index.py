@@ -7,9 +7,7 @@ if __name__ == '__main__':
     a = compile_afd()
     print(a)
     
-    resultado = a.get_categorias("\"ab\"nN\"aabbc dbbd\" n n NN")
+    resultado = a.get_categorias("12.1")
     print(resultado)
 
     print([categorias[x] for x in resultado])
-    
-    assert ['q3', 'q1', 'q1', 'q3', 'q1', 'q1', 'q1', 'q1'] == resultado
