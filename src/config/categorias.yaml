@@ -1,5 +1,11 @@
 categorias:
   q1: "NÚMERO"
   q3: "NÚMERO"
-  q4: "ATRIBUIÇÃO"
+  q4: "PARÊNTESES"
+  q5: "COLCHETES"
+  q6: "OARS"
+  q7: "OARS"
+  q8: "OARS"
+  q9: "ATRIB"
+  q10: "BOOL"
   NIN: "ELEMENTO DESCONHECIDO"
