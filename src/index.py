@@ -7,7 +7,7 @@ if __name__ == '__main__':
     a = compile_afd()
     print(a)
     
-    resultado = a.get_categorias("12.1")
+    resultado = a.get_categorias("12")
     print(resultado)
 
     print([categorias[x] for x in resultado])
