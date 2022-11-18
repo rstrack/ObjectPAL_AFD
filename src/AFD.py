@@ -42,17 +42,21 @@ class AFD:
         estado = self.inicial
         categorias = []
 
-        for i in range(len(cadeia_entrada)):
+        i = 0
+        while i < len(cadeia_entrada):
             estado_anterior: Estado = estado
             estado = self.get_next_estado(estado, cadeia_entrada[i])
         
             if estado == None:
                 estado = self.inicial
                 print(f'Reiniciou; já processado: {cadeia_entrada[:i]}, restante: {cadeia_entrada[i:]}')
-                if self.is_estado_final(estado_anterior) and cadeia_entrada[i] == " ":
+                if self.is_estado_final(estado_anterior):
                     categorias.append(estado_anterior.id)
+                    i = i-1
                 elif cadeia_entrada[i] != " ":
                     categorias.append("NIN")
+            
+            i = i+1
         
         if self.is_estado_final(estado):
             categorias.append(estado.id)
