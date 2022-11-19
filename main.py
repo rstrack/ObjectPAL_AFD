@@ -105,7 +105,7 @@ def t_error(t):
 lexer = lex.lex()
 
 
-''' VERSÂO COM INPUT INLINE '''
+#VERSÂO COM INPUT INLINE 
 # Test it out
 # data = '''
 # const
@@ -138,4 +138,6 @@ else:
                         flag = False
     except IOError as err:
         if err.errno == 2:
-            print(f"Erro: Arquivo não encontrado no diretório raiz.")
+            print("Erro: Arquivo não encontrado no diretório raiz.")
+        else:
+            print("Erro ao abrir o arquivo indicado")
