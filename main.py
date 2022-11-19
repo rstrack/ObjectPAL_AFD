@@ -1,4 +1,5 @@
 import ply.lex as lex
+import sys
 
 palavrasReservadas = r'active|and|array|as|case|caseInsensitive|const|container|create|database|descending|disableDefault|doDefault|dynArray|else|enableDefault|endConst|endCreate|endFor|eEndForEach|endIf|endIndex|endMethod|endProc|endQuery|endRecord|endScan|endSort|endSwitch|endSwitchMenu|endTry|endType|endUses|endVar|endWhile|for|forEach|from|if|iif|in|index|indexStruct|is|key|lastMouseClicked|lastMouseRightClicked|like|loop|maintained|method|not|ObjectPAL|of|on|onFail|or|otherwise|passEvent|primary|proc|query|quitLoop|record|refIntStruct|retry|return|scan|secStruct|self|sort|step|struct|subject|switch|switchMenu|tag|then|to|try|type|unique|uses|var|where|while|with|without'
 
@@ -101,25 +102,40 @@ def t_error(t):
 lexer = lex.lex()
 
 
+''' VERSÂO COM INPUT INLINE '''
 # Test it out
-data = '''
-const
-endConst
-if 9 > 8
-    ObjectPAL ;kolcsjklnclsdjkncjkdsnc782347823784623"
-    ObjectPAL
-'''
-linhas = data.split('\n')
+# data = '''
+# const
+# endConst
+# if 9 > 8
+#     ObjectPAL ;kolcsjklnclsdjkncjkdsnc782347823784623"
+#     ObjectPAL
+# '''
+#linhas = data.split('\n')
 
-for linha in linhas:
-    lexer.input(linha)
-    flag = True
-    while(flag):
-        tok = lexer.token()
-        if tok: 
-            print(tok)
-        else:
-            flag = False
+if len(sys.argv) == 1:
+    print("É preciso passar o nome do arquivo para leitura na linha de comando. EX: input.txt")
+else:
+    file_name = sys.argv[1]
+
+    try:
+        with open (file_name, "r", encoding="utf-8") as file:
+            linhas = file.readlines()
+
+            print(f'\nABRINDO ARQUIVO: {file_name}')
+
+            for linha in linhas:
+                lexer.input(linha)
+                flag = True
+                while(flag):
+                    tok = lexer.token()
+                    if tok: 
+                        print(tok)
+                    else:
+                        flag = False
+    except IOError as err:
+        if err.errno == 2:
+            print(f"Erro: Arquivo não encontrado no diretório raiz.")
 
 ''' VERSÃO WHILE TRUE
 # Give the lexer some input
