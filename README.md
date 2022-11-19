@@ -14,5 +14,5 @@ Projeto realizado para disciplina de Linguagens Formais e Compiladores
     python -m venv venv
     .\venv\Scripts\activate.bat
     pip install -r requirements.txt
-    python src\index.py
+    python index.py
 ```
