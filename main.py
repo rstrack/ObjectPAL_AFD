@@ -42,7 +42,7 @@ def t_IDN(t):
     t.type = dictPRS.get(t.value,'IDN')
     return t
 
-@lex.TOKEN(r'(and|or|not|<(>|=)?|>(=)?|=)')
+@lex.TOKEN(r'(and|or|not|<(>|=)?|>(=)?|[=+-/*])')
 def t_OARS(t):
     t.value = t.value
     return t
@@ -57,7 +57,7 @@ def t_BOO(t):
     t.type = dictPRS.get(t.value,'BOO')
     return t
 
-@lex.TOKEN(r'"[^"]*"')
+@lex.TOKEN(r'(("[^"]*")|({[^}]*}))')
 def t_STR(t):
     t.value = t.value 
     return t

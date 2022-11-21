@@ -1,0 +1,27 @@
+var
+	x Number
+	skillLevel String
+	tf Logical
+	aux[25] Array
+	character String
+endVar
+
+	x = 1			; variável utilizado para o for
+	skillLevel = "Beginner" ; Nível de jogo
+	character = "Raiden"	; nome do personagem
+
+	for x from 1 to 25
+		aux[x] = x+1
+	endFor
+
+	if x<50 then
+		tf = True 	{demonstração do uso do If}
+	endIf
+
+	method testTfLogicalValue (var tf)
+		if tf = True
+			character = "Raiden"
+		else
+			character = "Jody"
+		endIf
+	endMethod
