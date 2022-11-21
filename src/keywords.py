@@ -1,0 +1,10 @@
+palavrasReservadas = ['active', 'array', 'as', 'case', 'caseInsensitive', 'const', 'container', 'create', 'database', 'descending', 'disableDefault', 
+'doDefault', 'dynArray', 'else', 'enableDefault', 'endConst', 'endCreate', 'endFor', 'eEndForEach', 'endIf', 'endIndex', 'endMethod', 'endProc', 
+'endQuery', 'endRecord', 'endScan', 'endSort', 'endSwitch', 'endSwitchMenu', 'endTry', 'endType', 'endUses', 'endVar', 'endWhile', 'for', 'forEach', 
+'from', 'if', 'iif', 'in', 'index', 'indexStruct', 'is', 'key', 'lastMouseClicked', 'lastMouseRightClicked', 'like', 'loop', 'maintained', 'method', 
+'ObjectPAL', 'of', 'on', 'onFail', 'otherwise', 'passEvent', 'primary', 'proc', 'query', 'quitLoop', 'record', 'refIntStruct', 'retry', 'return', 'scan', 
+'secStruct', 'self', 'sort', 'step', 'struct', 'subject', 'switch', 'switchMenu', 'tag', 'then', 'to', 'try', 'type', 'unique', 'uses', 'var', 'where', 
+'while', 'with', 'without', 'ActionEvent', 'AddinForm', 'Application', 'Array', 'Binary', 'Currency', 'Database', 'DataTransfer', 'Date', 'DateTime', 
+'DDE', 'DynArray', 'ErrorEvent', 'Event', 'FileSystem', 'Form', 'Graphic', 'KeyEvent', 'Library', 'Logical', 'LogInt', 'Memo', 'MenuEvent', 'MouseEvent', 
+'Number', 'OLE', 'OleAuto', 'Point', 'Query', 'Record', 'Report', 'Script', 'Session', 'SmallInt', 'SQL', 'StatusEvent', 'String', 'System', 'Table', 
+'TableView', 'Tcursor', 'TextStream', 'Time', 'Toolbar', 'TimerEvent', 'UIObject']

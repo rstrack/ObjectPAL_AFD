@@ -6,7 +6,7 @@ var
 	character String
 endVar
 
-	x = 1			; variável utilizado para o for
+	x = 1.1....			; variável utilizado para o for
 	skillLevel = "Beginner" ; Nível de jogo
 	character = "Raiden"	; nome do personagem
 
