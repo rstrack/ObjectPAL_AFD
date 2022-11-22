@@ -6,8 +6,8 @@ var
 	character String
 endVar
 
-	x = 1.1....			; variável utilizado para o for
-	skillLevel = "Beginner" ; Nível de jogo
+	x = 1.1....			; variavel utilizado para o for
+	skillLevel = "Beginner" ; nivel de jogo
 	character = "Raiden"	; nome do personagem
 
 	for x from 1 to 25
@@ -15,7 +15,7 @@ endVar
 	endFor
 
 	if x<50 then
-		tf = True 	{demonstração do uso do If}
+		tf = True 	{demonstracao do uso do If}
 	endIf
 
 	method testTfLogicalValue (var tf)
