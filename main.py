@@ -6,6 +6,7 @@ if __name__ == '__main__':
         print("É preciso passar o nome do arquivo para leitura na linha de comando. EX: input.txt")
     else:
         file_name = sys.argv[1]
+        output = []
         try:
             with open (file_name, "r", encoding="utf-8") as file:
                 linhas = file.readlines()
@@ -19,8 +20,13 @@ if __name__ == '__main__':
                         tok = lexer.token()
                         if tok: 
                             print(tok)
+                            output.append(tok)
                         else:
                             flag = False
+                
+                arquivo = open("output.txt", 'w+')
+                for x in output:
+                    arquivo.write(f"{x.type};{x.value};{x.lineno};{x.lexpos}\n")
         except IOError as err:
             if err.errno == 2:
                 print("Erro: Arquivo não encontrado no diretório raiz.")
