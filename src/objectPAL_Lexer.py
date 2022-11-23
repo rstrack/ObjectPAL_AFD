@@ -29,13 +29,12 @@ class ObjectPAL_Lexer():
     'NIN'
     ]
 
-    # Regular expression rules for simple tokens
     t_LPAR  = r'\('
     t_RPAR  = r'\)'
     t_LCOL  = r'\['
     t_RCOL  = r'\]'
+    t_PTO = r','
 
-    # A regular expression rule with some action code
     @lex.TOKEN(r'\d+([.]\d*)?')
     def t_NUM(self, t):
         t.value = t.value 
@@ -66,41 +65,17 @@ class ObjectPAL_Lexer():
         t.value = t.value 
         return t
 
-    '''
-    @lex.TOKEN(r'')
-    def t_CAR(self, t):
-        t.value = t.value 
-        return t
-    '''
-
-    '''
-    @lex.TOKEN(r'')
-    def t_PTO(self, t):
-        t.value = t.value 
-        return t
-    '''
-
     @lex.TOKEN(r';.*|{[^}]*}')
     def t_COM(self, t):
         t.value = t.value 
         return t
 
-    '''
-    @lex.TOKEN(r'')
-    def t_NIN(self, t):
-        t.value = t.value 
-        return t
-    '''
-
-    # Define a rule so we can track line numbers
     def t_newline(self, t):
         r'\n+'
         t.lexer.lineno += len(t.value)
 
-    # A string containing ignored characters (spaces and tabs)
     t_ignore  = ' \t'
 
-    # Error handling rule
     def t_error(self, t):
         _t = t
         _t.type = 'NIN'
@@ -108,7 +83,6 @@ class ObjectPAL_Lexer():
         t.lexer.skip(1)
         return _t
 
-    # Build the lexer
     def build(self,**kwargs):
         self.lexer = lex.lex(module=self, **kwargs)
 
