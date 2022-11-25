@@ -33,9 +33,9 @@ class ObjectPAL_Lexer():
     t_RPAR  = r'\)'
     t_LCOL  = r'\['
     t_RCOL  = r'\]'
-    t_PTO = r','
+    t_PTO = r'[,.]'
 
-    @lex.TOKEN(r'\d+([.]\d*)?')
+    @lex.TOKEN(r'\d+')
     def t_NUM(self, t):
         t.value = t.value 
         return t
